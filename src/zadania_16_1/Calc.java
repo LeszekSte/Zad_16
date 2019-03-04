@@ -5,14 +5,22 @@ import java.util.Map;
 import java.util.Set;
 
 public class Calc {
+
+
     public void printAllData(Map<ZonedDateTime, Task> tasks) {
+
         Set<ZonedDateTime> key = tasks.keySet();
         Set<Map.Entry<ZonedDateTime, Task>> entrySet = tasks.entrySet();
-
+        System.out.println("Wszystkie zadania do wykonania ");
         for (ZonedDateTime zonedDateTime : key) {
             LocalDateTime lDT = zonedDateTime.toLocalDateTime();
             System.out.println(lDT + " - " + tasks.get(zonedDateTime).getDescription());
         }
+        getPrintln();
+    }
+
+    private void getPrintln() {
+        System.out.println("-------------------------------");
     }
 
     public void printData(Map<ZonedDateTime, Task> tasks, boolean termFuture) {
@@ -38,16 +46,20 @@ public class Calc {
                 System.out.println(++i + ". - " + lDT + " - " + tasks.get(zonedDateTime).getDescription());
             }
         }
+        getPrintln();
     }
 
     private void printFutureZone(Map<ZonedDateTime, Task> tasks, ZonedDateTime nowData, Set<ZonedDateTime> key) {
         doTo24Hour(tasks, nowData, key);
+        getPrintln();
         doTo30Days(tasks, nowData, key);
+        getPrintln();
         doInThisWeek(tasks, nowData, key);
+        getPrintln();
     }
 
     private void doInThisWeek(Map<ZonedDateTime, Task> tasks, ZonedDateTime nowData, Set<ZonedDateTime> key) {
-        System.out.println("Zadania do wykonanie w tym  tygodniu");
+        System.out.println("Zadania do wykonania w tym  tygodniu");
         System.out.println(nowData.getDayOfWeek());
 
         int iLastWeek = 0;
@@ -91,7 +103,7 @@ public class Calc {
     }
 
     private void doTo30Days(Map<ZonedDateTime, Task> tasks, ZonedDateTime nowData, Set<ZonedDateTime> key) {
-        System.out.println("Zadanie do wykonanie w ciągu 30 dni");
+        System.out.println("Zadanie do wykonania w ciągu 30 dni");
         int i30d = 0;
         for (ZonedDateTime zonedDateTime : key) {
             LocalDateTime lDT = zonedDateTime.toLocalDateTime();
